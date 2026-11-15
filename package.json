@@ -1,0 +1,34 @@
+{
+  "name": "edumanage-school-management-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "EduManage - Comprehensive School Management System for ALGIONS AI LABS assessment",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=server\" \"npm run dev --workspace=client\"",
+    "dev:server": "npm run dev --workspace=server",
+    "dev:client": "npm run dev --workspace=client",
+    "build": "npm run build --workspace=server && npm run build --workspace=client",
+    "test": "npm run test --workspace=server",
+    "test:ui": "npm run test --workspace=client",
+    "prisma:generate": "npm run prisma:generate --workspace=server",
+    "prisma:migrate": "npm run prisma:migrate --workspace=server",
+    "prisma:seed": "npm run prisma:seed --workspace=server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "prisma": "^5.22.0",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.16",
+    "@prisma/adapter-pg": "^5.22.0",
+    "@prisma/client": "^5.22.0",
+    "@types/pg": "^8.23.1",
+    "pg": "^8.23.1",
+    "pg-gateway": "^0.3.0-beta.4"
+  }
+}
