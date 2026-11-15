@@ -13,7 +13,7 @@
     "dev:client": "npm run dev --workspace=client",
     "build": "npm run build --workspace=server && npm run build --workspace=client",
     "build:render": "prisma generate --schema=prisma/schema.prisma && npm run build --workspace=client && npm run build --workspace=server",
-    "vercel-build": "prisma generate --schema=prisma/schema.prisma && npm run build --workspace=client",
+    "vercel-build": "prisma generate --schema=prisma/schema.prisma && npm run build --workspace=client && node scripts/copy-dist.js",
     "test": "npm run test --workspace=server",
     "test:ui": "npm run test --workspace=client",
     "prisma:generate": "npm run prisma:generate --workspace=server",
