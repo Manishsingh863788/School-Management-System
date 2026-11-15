@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: edumanage-school-system
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npm run build:render
+    startCommand: npx prisma migrate deploy --schema=prisma/schema.prisma && npx tsx prisma/render-init.ts && node server/dist/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: edumanage-postgres
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 1d
+      - key: CORS_ORIGIN
+        value: "*"
+      - key: SCHOOL_NAME
+        value: "EduManage International Academy"
+
+databases:
+  - name: edumanage-postgres
+    databaseName: edumanage
+    user: edumanage_user
+    plan: free
+    region: oregon

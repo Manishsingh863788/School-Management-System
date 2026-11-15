@@ -1,5 +1,7 @@
 import express, { Express } from 'express';
 import cors from 'cors';
+import path from 'path';
+import fs from 'fs';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import { env } from './config/env.js';
@@ -110,6 +112,27 @@ export const createApp = (): Express => {
   app.use('/api/report-cards', (req, res, next) => {
     req.url = '/report-cards' + req.url;
     examinationRoutes(req, res, next);
+  });
+
+  // Serve frontend static assets and SPA fallback in production
+  const candidatePaths = [
+    path.resolve(process.cwd(), 'client/dist'),
+    path.resolve(process.cwd(), '../client/dist'),
+    path.resolve(__dirname, '../../../client/dist'),
+    path.resolve(__dirname, '../../client/dist'),
+  ];
+  const clientDistPath = candidatePaths.find((p) => fs.existsSync(p)) || candidatePaths[0];
+  app.use(express.static(clientDistPath));
+
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
+    const indexPath = path.join(clientDistPath, 'index.html');
+    if (fs.existsSync(indexPath)) {
+      return res.sendFile(indexPath);
+    }
+    return next();
   });
 
   // 404 handler for unknown routes
