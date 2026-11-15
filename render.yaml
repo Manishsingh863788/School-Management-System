@@ -4,7 +4,7 @@ services:
     runtime: node
     plan: free
     region: oregon
-    buildCommand: npm install && npm run build:render
+    buildCommand: npm install --include=dev && npm run build:render
     startCommand: npx prisma migrate deploy --schema=prisma/schema.prisma && npx tsx prisma/render-init.ts && node server/dist/server.js
     envVars:
       - key: NODE_ENV

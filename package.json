@@ -22,9 +22,7 @@
   },
   "devDependencies": {
     "@vercel/node": "^31.0.0",
-    "concurrently": "^8.2.2",
-    "prisma": "^5.22.0",
-    "typescript": "^7.0.2"
+    "concurrently": "^8.2.2"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.16",
@@ -33,6 +31,8 @@
     "@types/pg": "^8.23.1",
     "pg": "^8.23.1",
     "pg-gateway": "^0.3.0-beta.4",
-    "tsx": "^4.11.0"
+    "prisma": "^5.22.0",
+    "tsx": "^4.11.0",
+    "typescript": "^5.4.5"
   }
 }
